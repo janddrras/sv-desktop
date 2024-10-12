@@ -1,19 +1,20 @@
 <script>
-	import { images } from '$lib/constants'
+	import { modal, images } from '$lib/stores'
 
-	export let modal
+	const closeModal = () => modal.set(false)
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div class="results">
-	{#each images as image}
-		<div class="img">
-			<img src={image} alt="Pixabay result" />
-		</div>
-	{/each}
-	<span class="backdrop" on:click={() => (modal = false)} on:keydown={(e) => e.key === 'Escape' && (modal = false)}
-	></span>
-</div>
+{#if $images.length > 0}
+	<div class="results">
+		{#each $images as image}
+			<div class="img">
+				<img src={image} alt="Pixabay result" />
+			</div>
+		{/each}
+		<span class="backdrop" on:click={closeModal} on:keydown={(e) => e.key === 'Escape' && modal.set(false)}></span>
+	</div>
+{/if}
 
 <style>
 	.results {

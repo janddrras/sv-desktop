@@ -3,9 +3,10 @@
 	import Date from '$lib/components/Date.svelte'
 	import Results from '$lib/components/Results.svelte'
 	import Control from '$lib/components/Control.svelte'
+	import { modal } from '$lib/stores'
+
 	export let data: { data: string }
 
-	$: modal = true
 	$: light = true
 	$: clock = true
 	$: weather = false
@@ -22,8 +23,8 @@
 </svelte:head>
 
 <main style="background: url({background}) no-repeat center; background-size: cover">
-	{#if modal}
-		<Results bind:modal />
+	{#if $modal}
+		<Results />
 	{/if}
 
 	<div class="control">

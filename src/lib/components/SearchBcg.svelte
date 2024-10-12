@@ -1,8 +1,8 @@
-<script>
+<script lang="ts">
+	import { images, modal } from '$lib/stores'
+
 	let search = ''
 	let category = ''
-	let modal = true
-	let images = []
 
 	const submit = async () => {
 		const response = await fetch('/api/search', {
@@ -13,8 +13,10 @@
 			body: JSON.stringify({ search, category })
 		})
 		const data = await response.json()
-		images = [...data]
-		if (images.length) modal = true
+
+		images.update(() => [...data.imageResults])
+
+		if ($images.length > 0) modal.set(true)
 	}
 </script>
 
