@@ -5,6 +5,8 @@
 	import Control from '$lib/components/Control.svelte'
 	import { modal } from '$lib/stores'
 
+	import { background } from '$lib/stores'
+
 	export let data: { data: string }
 
 	$: light = true
@@ -12,7 +14,7 @@
 	$: weather = false
 	$: search = true
 
-	$: background = data.data
+	background.set(data.data)
 </script>
 
 <svelte:head>
@@ -22,7 +24,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Akshar:wght@300..700&display=swap" rel="stylesheet" />
 </svelte:head>
 
-<main style="background: url({background}) no-repeat center; background-size: cover">
+<main style="background: url({$background}) no-repeat center; background-size: cover">
 	{#if $modal}
 		<Results />
 	{/if}

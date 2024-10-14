@@ -1,14 +1,26 @@
-<script>
-	import { modal, images } from '$lib/stores'
+<script lang="ts">
+	import { modal, images, background } from '$lib/stores'
 
 	const closeModal = () => modal.set(false)
+
+	const setAsBackground = (e: MouseEvent) => {
+		const img = (e.target as HTMLImageElement).currentSrc as string
+		background.set(img)
+		modal.set(false)
+		fetch('/api/set', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ img })
+		})
+	}
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 {#if $images.length > 0}
 	<div class="results">
 		{#each $images as image}
-			<div class="img">
+			<!-- svelte-ignore a11y-click-events-have-key-events -->
+			<div class="img" on:click|preventDefault={setAsBackground}>
 				<img src={image} alt="Pixabay result" />
 			</div>
 		{/each}

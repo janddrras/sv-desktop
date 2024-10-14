@@ -51,7 +51,6 @@
 	}
 	.icon:hover {
 		opacity: 1;
-		color: chartreuse;
 	}
 	.icon-button {
 		background: transparent;
