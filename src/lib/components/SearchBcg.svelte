@@ -1,10 +1,11 @@
 <script lang="ts">
-	import { images, modal } from '$lib/stores'
+	import { images, modal, loading } from '$lib/stores'
 
 	let search = ''
 	let category = ''
 
 	const submit = async () => {
+		loading.set(true)
 		const response = await fetch('/api/search', {
 			method: 'POST',
 			headers: {
@@ -15,8 +16,10 @@
 		const data = await response.json()
 
 		images.update(() => [...data.imageResults])
-
-		if ($images.length > 0) modal.set(true)
+		if ($images.length > 0) {
+			loading.set(false)
+			modal.set(true)
+		}
 	}
 </script>
 

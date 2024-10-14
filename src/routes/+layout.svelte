@@ -3,9 +3,9 @@
 	import Date from '$lib/components/Date.svelte'
 	import Results from '$lib/components/Results.svelte'
 	import Control from '$lib/components/Control.svelte'
-	import { modal } from '$lib/stores'
 
-	import { background } from '$lib/stores'
+	import { modal, background, loading } from '$lib/stores'
+	import Loading from '$lib/components/Loading.svelte'
 
 	export let data: { data: string }
 
@@ -24,7 +24,11 @@
 	<link href="https://fonts.googleapis.com/css2?family=Akshar:wght@300..700&display=swap" rel="stylesheet" />
 </svelte:head>
 
-<main style="background: url({$background}) no-repeat center; background-size: cover">
+<main style="background: url({$background}) no-repeat center;">
+	{#if $loading}
+		<Loading />
+	{/if}
+
 	{#if $modal}
 		<Results />
 	{/if}
@@ -73,6 +77,7 @@
 		width: 100%;
 		height: 100vh;
 		position: relative;
+		background-size: cover !important;
 	}
 	:global(section) {
 		border: var(--border);

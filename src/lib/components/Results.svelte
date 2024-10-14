@@ -1,5 +1,7 @@
 <script lang="ts">
+	import { fade } from 'svelte/transition'
 	import { modal, images, background } from '$lib/stores'
+	import { invalidateAll } from '$app/navigation'
 
 	const closeModal = () => modal.set(false)
 
@@ -18,9 +20,9 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 {#if $images.length > 0}
 	<div class="results">
-		{#each $images as image}
+		{#each $images as image, i}
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<div class="img" on:click|preventDefault={setAsBackground}>
+			<div class="img" on:click|preventDefault={setAsBackground} in:fade={{ duration: 500, delay: 3000 + i * 100 }}>
 				<img src={image} alt="Pixabay result" />
 			</div>
 		{/each}

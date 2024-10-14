@@ -5,3 +5,5 @@ export const modal = writable(false)
 export const images = writable<string[]>([])
 
 export const background = writable<string | null>(null)
+
+export const loading = writable(false)
