@@ -6,12 +6,13 @@
 
 	import { modal, background, loading } from '$lib/stores'
 	import Loading from '$lib/components/Loading.svelte'
+	import Weather from '$lib/components/Weather.svelte'
 
 	export let data: { data: string }
 
 	$: light = true
 	$: clock = true
-	$: weather = false
+	$: weather = true
 	$: search = true
 
 	background.set(data.data)
@@ -33,22 +34,26 @@
 		<Results />
 	{/if}
 
-	<div class="control">
-		<Control bind:light bind:clock bind:weather bind:search />
-	</div>
-
-	{#if clock}
-		<div class="date">
-			<Date />
+	<div class="grid">
+		<div class="control">
+			<Control bind:light bind:clock bind:weather bind:search />
 		</div>
-	{/if}
-
-	{#if search}
+		<div class="clock">
+			{#if clock}
+				<Date />
+			{/if}
+		</div>
+		<div class="weather">
+			{#if weather}
+				<Weather />
+			{/if}
+		</div>
 		<div class="search">
-			<SearchBcg />
+			{#if search}
+				<SearchBcg />
+			{/if}
 		</div>
-	{/if}
-
+	</div>
 	<slot />
 </main>
 
@@ -73,33 +78,42 @@
 		--primary-65: rgba(0, 0, 0, 0.65);
 		--border: 1px solid rgba(0, 0, 0, 0.5);
 	}
+	:global(section) {
+		border: var(--border);
+		border-radius: 10px;
+		padding: 1rem 2rem;
+		z-index: 2;
+	}
 	main {
 		width: 100%;
 		height: 100vh;
 		position: relative;
 		background-size: cover !important;
 	}
-	:global(section) {
-		border: var(--border);
-		border-radius: 10px;
-		padding: 1rem 2rem;
-	}
-	.date {
-		position: absolute;
-		top: 2rem;
-		right: 4rem;
-		text-align: center;
-		z-index: 2;
-	}
-	.search {
-		position: absolute;
-		bottom: 2rem;
-		z-index: 2;
+	.grid {
+		width: 100%;
+		height: 100%;
+		position: relative;
 	}
 	.control {
 		position: absolute;
 		top: 2rem;
-		left: 4rem;
-		z-index: 2;
+		left: 2rem;
+	}
+	.clock {
+		position: absolute;
+		top: 2rem;
+		right: 2rem;
+	}
+	.weather {
+		position: absolute;
+		top: 8rem;
+		left: 2rem;
+	}
+	.search {
+		position: absolute;
+		bottom: 2rem;
+		left: 2rem;
+		right: 2rem;
 	}
 </style>

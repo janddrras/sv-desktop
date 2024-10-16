@@ -44,6 +44,7 @@
 <style>
 	.clock {
 		min-width: 500px;
+		text-align: center;
 	}
 	p {
 		margin: 0;

@@ -42,8 +42,7 @@
 
 <style>
 	section {
-		width: calc(100vw - 12rem);
-		margin-left: 4rem;
+		min-width: 800px;
 	}
 	form {
 		display: flex;
