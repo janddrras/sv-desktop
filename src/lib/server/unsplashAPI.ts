@@ -1,5 +1,6 @@
 import { createApi } from 'unsplash-js'
+import { UNSPALSH_ACCESS_KEY } from '$env/static/private'
 
 export const unsplash = createApi({
-	accessKey: import.meta.env.VITE_UNSPALSH_ACCESS_KEY
+	accessKey: UNSPALSH_ACCESS_KEY
 })
