@@ -6,6 +6,7 @@
 
 	import { modal, background, loading } from '$lib/stores'
 	import Loading from '$lib/components/Loading.svelte'
+	import Weather from '$lib/components/Weather.svelte'
 
 	export let data: { data: string }
 
@@ -36,6 +37,12 @@
 	<div class="control">
 		<Control bind:light bind:clock bind:weather bind:search />
 	</div>
+
+	{#if weather}
+		<div class="weather">
+			<Weather />
+		</div>
+	{/if}
 
 	{#if clock}
 		<div class="date">
@@ -87,19 +94,27 @@
 	.date {
 		position: absolute;
 		top: 2rem;
-		right: 4rem;
+		right: 2rem;
 		text-align: center;
 		z-index: 2;
 	}
 	.search {
 		position: absolute;
+		width: calc(100% - 8rem);
 		bottom: 2rem;
+		left: 2rem;
 		z-index: 2;
 	}
 	.control {
 		position: absolute;
 		top: 2rem;
-		left: 4rem;
+		left: 2rem;
+		z-index: 2;
+	}
+	.weather {
+		position: absolute;
+		top: 10rem;
+		left: 2rem;
 		z-index: 2;
 	}
 </style>
