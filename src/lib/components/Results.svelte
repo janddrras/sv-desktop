@@ -1,29 +1,30 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition'
 	import { modal, images, background } from '$lib/stores'
-	import { invalidateAll } from '$app/navigation'
 
 	const closeModal = () => modal.set(false)
 
-	const setAsBackground = (e: MouseEvent) => {
-		const img = (e.target as HTMLImageElement).currentSrc as string
-		background.set(img)
-		modal.set(false)
-		fetch('/api/set', {
+	const setAsBackground = async (e: MouseEvent) => {
+		const imgId = (e.target as HTMLImageElement).id
+
+		const resp = await fetch('/api/set', {
 			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ img })
+			headers: { 'content-type': 'application/json' },
+			body: JSON.stringify({ imgId })
 		})
+		const img = await resp.json()
+		background.set(img.img)
+		modal.set(false)
 	}
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 {#if $images.length > 0}
 	<div class="results">
-		{#each $images as image, i}
+		{#each $images as image, i (image.id)}
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<div class="img" on:click|preventDefault={setAsBackground} in:fade={{ duration: 500, delay: 3000 + i * 100 }}>
-				<img src={image} alt="Pixabay result" />
+			<div class="img" on:click|preventDefault={setAsBackground} in:fade={{ duration: 500, delay: 3000 + i * 1000 }}>
+				<img src={image.url} alt={image.alt} id={image.id} />
 			</div>
 		{/each}
 		<span class="backdrop" on:click={closeModal} on:keydown={(e) => e.key === 'Escape' && modal.set(false)}></span>

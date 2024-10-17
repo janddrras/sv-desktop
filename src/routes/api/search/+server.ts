@@ -1,13 +1,16 @@
 import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
-import { fetchImages } from '$lib/server/fetchImages'
+import { unsplash } from '$lib/server/unsplashAPI'
 
 export const POST: RequestHandler = async ({ request }) => {
 	const { search, category } = await request.json()
 
-	const data = await fetchImages({ search, category })
+	const data = await unsplash.search.getPhotos({ query: `${search} ${category}`, perPage: 20, page: 1 })
+	const resp = data.response?.results.map((photo) => ({
+		id: photo.id,
+		url: photo.urls.small,
+		alt: photo.alt_description
+	}))
 
-	const imageResults = data.data.hits.map((image: { largeImageURL: string }) => image.largeImageURL)
-
-	return json({ imageResults })
+	return json({ resp })
 }

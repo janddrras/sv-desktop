@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SearchBcg from '$lib/components/SearchBcg.svelte'
+	import Search from '$lib/components/Search.svelte'
 	import Date from '$lib/components/Date.svelte'
 	import Results from '$lib/components/Results.svelte'
 	import Control from '$lib/components/Control.svelte'
@@ -45,7 +45,7 @@
 
 	{#if search}
 		<div class="search">
-			<SearchBcg />
+			<Search />
 		</div>
 	{/if}
 

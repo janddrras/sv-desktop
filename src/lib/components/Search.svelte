@@ -15,7 +15,7 @@
 		})
 		const data = await response.json()
 
-		images.update(() => [...data.imageResults])
+		images.update(() => [...data.resp])
 		if ($images.length > 0) {
 			loading.set(false)
 			modal.set(true)
