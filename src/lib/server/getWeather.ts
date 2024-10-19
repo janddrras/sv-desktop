@@ -5,13 +5,20 @@ export const getWeather = async () => {
 		latitude: 46.5425,
 		longitude: 24.5575,
 		current: ['temperature_2m', 'weather_code'],
-		hourly: ['temperature_2m', 'weather_code'],
-		daily: ['weather_code', 'temperature_2m_max', 'temperature_2m_min', 'sunrise', 'sunset'],
+		daily: ['weather_code', 'temperature_2m_max', 'temperature_2m_min'],
 		timezone: 'Europe/Moscow',
 		forecast_days: 16
 	}
+	const params2 = {
+		latitude: 46.5425,
+		longitude: 24.5575,
+		hourly: ['temperature_2m', 'weather_code'],
+		timezone: 'Europe/Moscow',
+		forecast_days: 1
+	}
 	const url = 'https://api.open-meteo.com/v1/forecast'
 	const responses = await fetchWeatherApi(url, params)
+	const responses_hourly = await fetchWeatherApi(url, params2)
 
 	// Helper function to form time ranges
 	const range = (start: number, stop: number, step: number) =>
@@ -19,6 +26,7 @@ export const getWeather = async () => {
 
 	// Process first location. Add a for-loop for multiple locations or weather models
 	const response = responses[0]
+	const response_hourly = responses_hourly[0]
 
 	// Attributes for timezone and location
 	const utcOffsetSeconds = response.utcOffsetSeconds()
@@ -28,7 +36,7 @@ export const getWeather = async () => {
 	// const longitude = response.longitude()
 
 	const current = response.current()!
-	const hourly = response.hourly()!
+	const hourly = response_hourly.hourly()!
 	const daily = response.daily()!
 
 	// Note: The order of weather variables in the URL query and the indices below need to match!
@@ -77,3 +85,5 @@ export const getWeather = async () => {
 	// }
 	return weatherData
 }
+
+export type WeatherData = ReturnType<typeof getWeather>

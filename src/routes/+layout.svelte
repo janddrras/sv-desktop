@@ -6,13 +6,13 @@
 
 	import { modal, background, loading } from '$lib/stores'
 	import Loading from '$lib/components/Loading.svelte'
-	import Weather from '$lib/components/Weather.svelte'
+	import Weather from '$lib/components/weather/Weather.svelte'
 
 	export let data: { data: string }
 
 	$: light = true
 	$: clock = true
-	$: weather = false
+	$: weather = true
 	$: search = true
 
 	background.set(data.data)
@@ -113,7 +113,7 @@
 	}
 	.weather {
 		position: absolute;
-		top: 10rem;
+		top: 12rem;
 		left: 2rem;
 		z-index: 2;
 	}
