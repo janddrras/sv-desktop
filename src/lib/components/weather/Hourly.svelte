@@ -3,7 +3,6 @@
 	import { weather } from '$lib/stores'
 
 	let hourly = $weather?.hourly
-	console.log(hourly)
 
 	let times = hourly?.time ? Object.values(hourly.time) : []
 	let temps = hourly?.temperature2m ? Object.values(hourly.temperature2m) : []
@@ -64,6 +63,6 @@
 		font-size: 0.7rem;
 	}
 	.highlight {
-		background: var(--primary-03);
+		background: var(--primary-01);
 	}
 </style>

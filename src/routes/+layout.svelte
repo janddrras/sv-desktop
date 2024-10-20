@@ -7,13 +7,14 @@
 	import { modal, background, loading } from '$lib/stores'
 	import Loading from '$lib/components/Loading.svelte'
 	import Weather from '$lib/components/weather/Weather.svelte'
+	import { fade } from 'svelte/transition'
 
 	export let data: { data: string }
 
 	$: light = true
 	$: clock = true
-	$: weather = true
-	$: search = true
+	$: weather = false
+	$: search = false
 
 	background.set(data.data)
 </script>
@@ -39,19 +40,19 @@
 	</div>
 
 	{#if weather}
-		<div class="weather">
+		<div class="weather" transition:fade>
 			<Weather />
 		</div>
 	{/if}
 
 	{#if clock}
-		<div class="date">
+		<div class="date" transition:fade>
 			<Date />
 		</div>
 	{/if}
 
 	{#if search}
-		<div class="search">
+		<div class="search" transition:fade>
 			<Search />
 		</div>
 	{/if}
@@ -66,6 +67,7 @@
 		--primary-03: rgba(255, 255, 255, 0.3);
 		--primary-65: rgba(255, 255, 255, 0.65);
 		--border: 1px solid rgba(255, 255, 255, 0.5);
+		--background-color: rgb(29, 26, 26);
 	}
 	:global(body) {
 		font-family: 'Akshar', sans-serif;
@@ -79,6 +81,7 @@
 		--primary-03: rgba(0, 0, 0, 0.3);
 		--primary-65: rgba(0, 0, 0, 0.65);
 		--border: 1px solid rgba(0, 0, 0, 0.5);
+		--background-color: rgb(255, 255, 255);
 	}
 	main {
 		width: 100%;

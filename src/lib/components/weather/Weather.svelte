@@ -49,6 +49,7 @@
 		width: 500px;
 		height: 400px;
 		position: relative;
+		background: var(--background-color);
 		margin: 0;
 		padding: 0;
 	}

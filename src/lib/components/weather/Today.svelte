@@ -26,9 +26,10 @@
 		inset: 0;
 		background-size: cover !important;
 		border-radius: 10px;
+		text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
 	}
 	h1 {
-		font-size: 5rem;
+		font-size: 6rem;
 		margin: 1rem 0 -0.5rem 0;
 	}
 	h2 {
@@ -37,7 +38,7 @@
 		margin: 0;
 	}
 	.icon {
-		font-size: 5rem;
+		font-size: 6rem;
 	}
 	sup {
 		font-size: 3rem;

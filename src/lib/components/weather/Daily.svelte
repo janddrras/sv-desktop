@@ -42,6 +42,7 @@
 		flex-direction: column;
 		align-items: center;
 		padding-top: 0.5rem;
+		padding-bottom: 0.25rem;
 	}
 	.icon {
 		font-size: 1.5rem;
@@ -70,6 +71,6 @@
 		font-size: 0.7rem;
 	}
 	.highlight {
-		background: var(--primary-03);
+		background: var(--primary-01);
 	}
 </style>

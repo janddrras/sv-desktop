@@ -6,7 +6,6 @@ export const getWeather = async () => {
 		longitude: 24.5575,
 		current: ['temperature_2m', 'weather_code'],
 		daily: ['weather_code', 'temperature_2m_max', 'temperature_2m_min'],
-		timezone: 'Europe/Moscow',
 		forecast_days: 16
 	}
 	const params2 = {
