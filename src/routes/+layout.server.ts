@@ -4,19 +4,15 @@ import type { LayoutServerLoad } from './$types'
 import 'dotenv/config'
 
 export const load: LayoutServerLoad = async ({ cookies }) => {
-	const background = cookies.get('background')
-	if (background) return { data: background }
+	let background: string | undefined = cookies.get('background')
+	if (background) return { background }
 
-	try {
-		const randomImage = await unsplash.photos.getRandom({ query: 'landscape', orientation: 'landscape' })
-		const photo = Array.isArray(randomImage.response) ? randomImage.response[0] : randomImage.response
-		if (!photo) throw new Error('Failed to fetch photo')
-		const background = photo.urls.full
+	const randomImage = await unsplash.photos.getRandom({ query: 'landscape', orientation: 'landscape' })
+	const photo = Array.isArray(randomImage.response) ? randomImage.response[0] : randomImage.response
+	if (!photo) throw new Error('Failed to fetch photo')
+	background = photo.urls.full
 
-		cookies.set('background', background, { path: '/', maxAge: 60 * 60 * 24 * 7 })
+	cookies.set('background', background, { path: '/', maxAge: 60 * 60 * 24 * 7 })
 
-		return { background }
-	} catch (error) {
-		return error
-	}
+	return { background }
 }

@@ -40,3 +40,5 @@ export const background = writable<string | null>(null)
 export const loading = writable(false)
 
 export const weather = writable<WeatherData | null>(null)
+
+export const weatherLoading = writable(false)

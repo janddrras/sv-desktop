@@ -14,7 +14,7 @@
 	}
 
 	let controlToggle = false
-	let containerWidth = tweened(50, { duration: 100 })
+	let containerWidth = tweened(50, { duration: 500 })
 
 	const toggleControls = () => (controlToggle = !controlToggle)
 	const toggleClock = () => (clock = !clock)
@@ -38,13 +38,13 @@
 			<button class="icon-button" on:click={toggleClock} transition:fade>
 				<iconify-icon icon="fluent:clock-28-regular" class="icon" style={clock && 'opacity: 1;'} />
 			</button>
-			<button class="icon-button" on:click={toggleWeather} transition:fade={{ delay: 100 }}>
+			<button class="icon-button" on:click={toggleWeather} in:fade={{ delay: 100 }} out:fade>
 				<iconify-icon icon="fluent:weather-rain-showers-day-24-regular" class="icon" style={weather && 'opacity: 1;'} />
 			</button>
-			<button class="icon-button" on:click={toggleSearch} transition:fade={{ delay: 200 }}>
+			<button class="icon-button" on:click={toggleSearch} in:fade={{ delay: 200 }} out:fade>
 				<iconify-icon icon="fluent:image-28-regular" class="icon" style={search && 'opacity: 1;'} />
 			</button>
-			<button class="icon-button" on:click={changeMode} transition:fade={{ delay: 300 }}>
+			<button class="icon-button" on:click={changeMode} in:fade={{ delay: 300 }} out:fade>
 				{#if light}
 					<iconify-icon icon="fluent:brightness-high-28-regular" class="icon" style="opacity: 1;" />
 				{:else}

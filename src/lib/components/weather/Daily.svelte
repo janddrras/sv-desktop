@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { weatherCodes } from '$lib/constants'
-	import { weather } from '$lib/stores'
+	import { weather, weatherLoading } from '$lib/stores'
 
 	let daily = $weather?.daily
 	let minTemps = daily?.temperature2mMin ? Object.values(daily.temperature2mMin) : []
@@ -11,19 +11,23 @@
 </script>
 
 <div class="daily">
-	{#each times as time, i}
-		<div class="day" class:highlight={(i > 3 && i < 8) || i > 11}>
-			<p class="date">{new Date(time).toLocaleString('en-US', { weekday: 'short', day: 'numeric' })}</p>
-			<div class="temps">
-				<p class="temp">{minTemps[i].toFixed(1)} <sup>o</sup>C</p>
-				<p class="temp">{maxTemps[i].toFixed(1)} <sup>o</sup>C</p>
+	{#if $weatherLoading}
+		<iconify-icon icon="svg-spinners:8-dots-rotate" class="icon" />
+	{:else}
+		{#each times as time, i}
+			<div class="day" class:highlight={(i > 3 && i < 8) || i > 11}>
+				<p class="date">{new Date(time).toLocaleString('en-US', { weekday: 'short', day: 'numeric' })}</p>
+				<div class="temps">
+					<p class="temp">{minTemps[i].toFixed(1)} <sup>o</sup>C</p>
+					<p class="temp">{maxTemps[i].toFixed(1)} <sup>o</sup>C</p>
+				</div>
+				<div class="icons">
+					<iconify-icon class="icon" icon={icons[i]} />
+					<p class="code">{codes[i]}</p>
+				</div>
 			</div>
-			<div class="icons">
-				<iconify-icon class="icon" icon={icons[i]} />
-				<p class="code">{codes[i]}</p>
-			</div>
-		</div>
-	{/each}
+		{/each}
+	{/if}
 </div>
 
 <style>

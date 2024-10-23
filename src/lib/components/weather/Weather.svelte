@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-	import { weather } from '$lib/stores'
+	import { weather, weatherLoading } from '$lib/stores'
 	import Today from './Today.svelte'
 	import Daily from './Daily.svelte'
 	import Hourly from './Hourly.svelte'
@@ -17,9 +17,11 @@
 
 	onMount(() => {
 		async function fetchWeather() {
+			$weatherLoading = true
 			const res: Response = await fetch('/api/weather')
 			const data = await res.json()
 			weather.set(data.data)
+			$weatherLoading = false
 		}
 		fetchWeather()
 		const interval = setInterval(fetchWeather, 60000 * 5)

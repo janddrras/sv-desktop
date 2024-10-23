@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { weatherCodes } from '$lib/constants'
-	import { weather } from '$lib/stores'
+	import { weather, weatherLoading } from '$lib/stores'
 
 	let cc: number = $weather?.current.weatherCode || 0
 	let weatherBcg = weatherCodes[cc as keyof typeof weatherCodes].background
@@ -9,9 +9,13 @@
 </script>
 
 <div class="content today" style="background: url({weatherBcg}) no-repeat;">
-	<h1>{$weather?.current.temperature2m?.toFixed(1)} <sup>o</sup>C</h1>
-	<iconify-icon class="icon" icon={weatherIcon} />
-	<h2>{weatherDesc}</h2>
+	{#if $weatherLoading}
+		<iconify-icon icon="svg-spinners:8-dots-rotate" class="icon" />
+	{:else}
+		<h1>{$weather?.current.temperature2m?.toFixed(1)} <sup>o</sup>C</h1>
+		<iconify-icon class="icon" icon={weatherIcon} />
+		<h2>{weatherDesc}</h2>
+	{/if}
 </div>
 
 <style>

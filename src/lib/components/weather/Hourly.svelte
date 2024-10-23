@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { weatherCodes } from '$lib/constants'
-	import { weather } from '$lib/stores'
+	import { weather, weatherLoading } from '$lib/stores'
 
 	let hourly = $weather?.hourly
 
@@ -11,16 +11,20 @@
 </script>
 
 <div class="hourly">
-	{#each times as time, i}
-		<div class="hour" class:highlight={(i > 3 && i < 8) || (i > 11 && i < 16) || i > 19}>
-			<p class="date">{new Date(time).toLocaleTimeString('ro-RO', { hour: 'numeric' })}</p>
-			<div class="temps">
-				<p class="temp">{temps[i].toFixed(1)} <sup>o</sup>C</p>
-				<iconify-icon class="icon" icon={icons[i]} />
-				<p class="code">{codes[i]}</p>
+	{#if $weatherLoading}
+		<iconify-icon icon="svg-spinners:8-dots-rotate" class="icon" />
+	{:else}
+		{#each times as time, i}
+			<div class="hour" class:highlight={(i > 3 && i < 8) || (i > 11 && i < 16) || i > 19}>
+				<p class="date">{new Date(time).toLocaleTimeString('ro-RO', { hour: 'numeric' })}</p>
+				<div class="temps">
+					<p class="temp">{temps[i].toFixed(1)} <sup>o</sup>C</p>
+					<iconify-icon class="icon" icon={icons[i]} />
+					<p class="code">{codes[i]}</p>
+				</div>
 			</div>
-		</div>
-	{/each}
+		{/each}
+	{/if}
 </div>
 
 <style>

@@ -8,15 +8,16 @@
 	import Loading from '$lib/components/Loading.svelte'
 	import Weather from '$lib/components/weather/Weather.svelte'
 	import { fade } from 'svelte/transition'
+	import type { LayoutServerData } from './$types'
 
-	export let data: { data: string }
+	export let data: LayoutServerData
 
 	$: light = true
 	$: clock = true
 	$: weather = false
 	$: search = false
 
-	background.set(data.data)
+	background.set(data.background)
 </script>
 
 <svelte:head>
